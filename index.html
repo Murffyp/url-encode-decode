@@ -72,16 +72,13 @@
 	  padding-right: 20px;
 	  padding-right: 20px;
 	  box-shadow: 2px 2px 2px var(--accent), 
-                 -0px -0px 0px #9e8fff
-  }
-  .encode-decode:active {
-	  border-style: none;
+                 -2px -2px 2px #777777
   }
 	  
   .encode-decode.active{
-	  transform: translateY(1px);
+	  transform: translateY(2px);
 	  box-shadow: 1px 1px 1px var(--accent), 
-                 -0px -0px 0px #9e8fff
+                 -2px -2px 2px #777777
   }
 
 </style>
@@ -94,14 +91,17 @@
         </div>
         <div class="buttons">
 			<div class="button-wrap-left">
-                <button class="encode-decode" onclick="document.getElementById('output').value = encodeURIComponent(document.getElementById('input').value)">Encode</button>
+				<div class="encode-decode" onclick="document.getElementById('output').value = encodeURIComponent(document.getElementById('input').value)">Encode</div>
+<!--                <button class="encode-decode" onclick="document.getElementById('output').value = encodeURIComponent(document.getElementById('input').value)">Encode</button>-->
             </div>
             <div class="spacer"></div>
-            <button class="encode-decode">PLACEHOLDER</button>
+<!--                <button class="encode-decode">PLACEHOLDER</button>-->
+                <div class="encode-decode">PLACEHOLDER</div>
             <!--<button onclick[[INSERT CODE HRE FOR SWITCHING OUTPUT TOI INPUT (JS CODE LIIKELY)></button>-->
             <div class="spacer"></div>
             <div class="button-wrap-right">
-				<button class="encode-decode" onclick="document.getElementById('output').value = decodeURIComponent(document.getElementById('input').value)">Decode</button>
+				<div class="encode-decode" onclick="document.getElementById('output').value = decodeURIComponent(document.getElementById('input').value)">Decode</div>
+<!--				<button class="encode-decode" onclick="document.getElementById('output').value = decodeURIComponent(document.getElementById('input').value)">Decode</button>-->
 			</div>
         </div>
         <div class="textbox">
