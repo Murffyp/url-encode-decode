@@ -1,0 +1,125 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Inter:wght@400;500;600&display=swap');
+
+  :root {
+    --bg: #0d0d0f;
+    --surface: #141418;
+    --surface2: #1c1c22;
+    --border: #2a2a35;
+    --accent: #00BCD4;
+    --text: #00E5FF;
+    --muted: #6b9ba0;
+    --label: #6b9ba0;
+    /*--warn: #ff6b6b;*/
+    --btn: 40px;
+  }
+   body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', monospace;   /* THIS VERY LIKELY IS NOT CORRCT FOR THS FONT  im basing this off of jjet brains form other projects  sso  this needs fixing im SURE*/
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px;
+  } 
+  
+  .main {
+  }
+  
+  .text {
+	  width: 75vw;
+	  min-height: 30vh;
+	  height: fit-content;
+  }
+  
+  .buttons {
+	  display: flex;
+	  flex-direction: row;
+	  justify-content: center;
+	  align-items: center;
+	  height: calc(2 * var(--btn));
+	  /*height: 80px;*/
+  }
+  
+  .button-wrap-left {
+	  display: flex;
+	  justify-content: flex-start;
+  }
+
+  .button-wrap-riht {
+	  display: flex;
+	  justify-content: flex-end;
+  }
+  
+  .spacer {
+	  width: 100px;
+	  height:auto;
+  }
+  .encode-decode {
+	  width: 80x;
+	  height: var(--btn)px; /*GUESSING AT NUBMER FOR NOW UNTIL TEST*/
+	  background-color: var(--surface2);
+	  color: var(--text);
+	  font-family: 'Inter';    /* AS ABOVE LIKELY INCORRECT */
+	  font-size: 16px;
+	  border-radius: 8px;
+	  padding-left: 20px;
+	  padding-right: 20px;
+	  padding-right: 20px;
+	  box-shadow: 2px 2px 2px var(--accent), 
+                 -0px -0px 0px #9e8fff
+  }
+  .encode-decode:active {
+	  border-style: none;
+  }
+	  
+  .encode-decode.active{
+	  transform: translateY(1px);
+	  box-shadow: 1px 1px 1px var(--accent), 
+                 -0px -0px 0px #9e8fff
+  }
+
+</style>
+</head>
+<body>
+<div class="main">
+    <div class="container">
+        <div class="textbox">
+            <textarea class="text" id="input"></textarea>
+        </div>
+        <div class="buttons">
+			<div class="button-wrap-left">
+                <button class="encode-decode" onclick="document.getElementById('output').value = encodeURIComponent(document.getElementById('input').value)">Encode</button>
+            </div>
+            <div class="spacer"></div>
+            <button class="encode-decode">PLACEHOLDER</button>
+            <!--<button onclick[[INSERT CODE HRE FOR SWITCHING OUTPUT TOI INPUT (JS CODE LIIKELY)></button>-->
+            <div class="spacer"></div>
+            <div class="button-wrap-right">
+				<button class="encode-decode" onclick="document.getElementById('output').value = decodeURIComponent(document.getElementById('input').value)">Decode</button>
+			</div>
+        </div>
+        <div class="textbox">
+            <textarea class="text" id="output"></textarea>
+        </div>
+    </div>
+</div>
+<script>
+    document.querySelectorAll('.encode-decode').forEach(function(element) {
+		const href = element.dataset.href;
+        element.addEventListener('click', function() {
+            element.classList.add('active');
+            setTimeout(() => {
+                element.classList.remove('active');
+            }, 300);
+        });
+    });
+
+</script>
+</body>
+</html>
