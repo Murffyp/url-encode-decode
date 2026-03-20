@@ -330,43 +330,62 @@ function check(val) {
     const output = document.getElementById('output');
 	console.log('CHANGE DETECTED', val);
 	regex = /<|>|\+|#/;
-	regexPercentStartExtra = /^%./;
+	regexPercentStartAny = /^%./;
 	regexPercentStart = /^%/;
+	regexPercentStartOneExtra = /^%[\S]{1}$/;
 	regexPercentStartOnly = /^%$/;
 	match = regex.test(inputValue);
 	matchPercentStart = regexPercentStart.test(inputValue);
 	matchPercentStartOnly = regexPercentStartOnly.test(inputValue);
-	matchPercentStartExtra = regexPercentStartExtra.test(inputValue);
-	console.log('matchPercentStartExtra', matchPercentStartExtra);
-	matchPercentStart = regexPercentStart.test(inputValue);
+	matchPercentStartAny = regexPercentStartAny.test(inputValue);
+	matchPercentStartOneExtra = regexPercentStartOneExtra.test(inputValue);
+	console.log('✅REGEX: match = ', match);
+	console.log('1️⃣REGEX: matchPercentStart = ', matchPercentStart);
+	console.log('2️⃣REGEX: matchPercentStartOnly = ', matchPercentStartOnly);
+	console.log('4️⃣REGEX: matchPercentStartAny = ', matchPercentStartAny);
+	console.log('3️⃣REGEX: matchPercentStartOneExtra = ', matchPercentStartOneExtra);
 	if (match === true) {
 		console.log('Match Found: Encode');
 		try {
-          output.value = encodeURIComponent(input.value);
+			output.value = encodeURIComponent(input.value);
         } catch(e) {
-          output.value = 'Error: ' + e.message;
+			output.value = 'Error: ' + e.message;
         }
 	}
 	else if (matchPercentStart === true) {
-		if (matchPercentStartOnly === true) {
-			console.log('% firstCharacter; NO OTHER CHARACTERS YET');
-		}
-		else {
-			console.log('% firstCharacter; More Characters Added');   // NEED TO HANDL CASE WHERE % fllowed by character that DO decode ISNT kept as encoded..... TBC
-			3
-			try {
-              output.value = encodeURIComponent(input.value);
-            } catch(e) {
-              output.value = 'Error: ' + e.message;
-            }
-        }
+		console.log('[matchPercentStart] % Is first character');
+		    if (matchPercentStartOnly === true) {
+				console.log('[matchPercentStartOnly] % Is ONLY character: DO NOT ENCODE OR DECODE YET');
+				output.value = 'waiting on additional characters for auto-detect';
+			}
+			else if (matchPercentStartOneExtra === true) {
+			    try {
+					console.log('[matchPercentStart, matchPercentStartOneExtra] % Is first character WITH ONE other character, TRY encode, if fail decode');
+					output.value = '';
+					output.value = encodeURIComponent(input.value);
+				} catch(e) {
+					console.log('[matchPercentStart, matchPercentStartOneExtra] % Is first character WITH ONE other character, decode');
+					output.value = '';
+					output.value = decodeURIComponent(input.value);
+                }
+			}
+			else if (matchPercentStartAny === true) {
+			    try {
+					console.log('[matchPercentStart, matchPercentStartAny] % Is first character WITH other characters, try decode, fail encode');
+					output.value = decodeURIComponent(input.value);
+				} catch(e) {
+					console.log('[matchPercentStart, matchPercentStartAny] % Is first character WITH other characters, encode');
+					output.value = encodeURIComponent(input.value);
+
+                }
+			}
 	}
 	else {
 		console.log('Match Not Found: Decode');
 	    try {
-          output.value = decodeURIComponent(input.value);
+			output.value = decodeURIComponent(input.value);
         } catch(e) {
-          output.value = 'Error: invalid encoded string';
+			output.value = 'Error: invalid encoded string';
         }
 	}
 }
