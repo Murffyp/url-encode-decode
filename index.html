@@ -8,137 +8,259 @@
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap');
 
   :root {
-    --bg: #0d0d0f;
-    --surface: #141418;
-    --surface2: #1c1c22;
-    --border: #2a2a35;
-    --accent: #00BCD4;
-    --text: #e8e8f0;
-    --muted: #6b9ba0;
-    --btn-h: 40px;
+      --bg: #0d0d0f;
+      --surface: #141418;
+      --surface2: #1c1c22;
+      --border: #2a2a35;
+      --accent: #00BCD4;
+      --accent2: #87b8bf;
+      --text: #00BCD4;
+      --code-text: #e8e8f0;
+      --muted: #6b9ba0;
+      --muted2: #00BCD422;
+      --muted3: #00BCD477;
+      --btn-h: 40px;
   }
 
   * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
   }
 
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 24px 16px;
-    gap: 8px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      gap: 8px;
   }
 
   h1 {
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--accent);
-    margin-bottom: 8px;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+  }
+  
+  .shadow {
+	  text-shadow: 2px 2px var(--muted3)
   }
 
+  .main-container {
+      display: flex;
+      flex-direction: column;
+      width: 80vw;
+      max-width: 1200px;
+  }
+  .side-code-wrap {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: 80vw;
+      max-width: 1200px;
+  }
+
+
+    .side-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;     /* THIS WAS APPLYING  CLEARLY SOMETHIG IS OVERRIDING IT NOW  -- CLAUDE ?? */
+      gap: 12px;
+      width: 5vw;
+      max-width: 60px;
+      height: auto;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      padding: 15px 10px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--bg);
+  }
+    .side-labels {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text);
+  }
   .container {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 75vw;
-    max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+      margin: 10px 0px 10px 0px;
   }
 
+  .center-btns {
+	  align-items: center;
+	  height: 100%;
+  }
+  .title {
+      justify-content: center;
+      align-items: center;
+  }
+  
+  .live {
+	  font-size: 14px;
+	  padding: 15px 0px 15px 5px;
+	  text-transform: capitalize;
+  }  
+  .desc-text {
+      width: 100%;
+      min-height: fit-content;
+      background: var(--muted2);  
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      border: 1px solid var(--border);   
+      border-radius: 8px;
+      padding: 12px;
+      resize: vertical;
+      outline: none;
+  }
+  
   textarea {
-    width: 100%;
-    min-height: 30vh;
-    background: var(--surface2);
-    color: var(--text);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px;
-    resize: vertical;
-    outline: none;
+      width: 100%;
+      min-height: 30vh;
+      background: var(--surface2);
+      color: var(--code-text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      resize: vertical;
+      outline: none;
   }
 
   textarea:focus {
-    border-color: var(--accent);
+      border-color: var(--accent2);
   }
 
   .buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: calc(var(--btn-h) + 16px);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      height: calc(var(--btn-h) + 16px);
+  }
+  
+  .copy {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      height: calc(var(--btn-h) + 16px);
   }
 
   .btn {
-    height: var(--btn-h);
-    background: var(--surface2);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    border-radius: 8px;
-    padding: 0 20px;
-    cursor: pointer;
-    user-select: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 2px 2px 4px var(--accent),
-                -2px -2px 4px #444;
-    transition: box-shadow 0.15s, transform 0.1s;
+      height: var(--btn-h);
+      background: var(--surface2);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 8px;
+      padding: 0 20px;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 2px 2px 2px var(--accent),                 /* JUST NOTICED THIS ISNT WORKING ANYMORE (NOTE other than the effect change it WAS working.. including pressing which ALSO doest work now???)... it SHOULD BE : height: calc(var(--btn-h) + 16px);:    and it WAS  so i THINK the HEIGHT is whats making he effect not visible its there i think  just not visible???.....   OR (less likely) SOMETHING must be OVRRIDING IT   but when i look at STYLES IN DEV tools.. it SHOWS its applied and not crossed out.. but ITS NOT THERE????   */
+                   -2px -2px 2px #777777						/* SEE BELOW i tried hardcoding he height THAT DOESNT WORK EITHER so SOMETHING IS OVERIDING THE HEIGHT  */
+      transition: box-shadow 0.15s, transform 0.1s;
+	  
   }
-
-  .btn:active, .btn.active {
-    transform: translateY(2px);
-    box-shadow: 1px 1px 2px var(--accent),
-                -1px -1px 2px #444;
+  .btn.active{
+	  transform: translateY(2px);
+	  box-shadow: 1px 1px 1px var(--accent), 
+                   -2px -2px 2px #777777cent),
+                  -1px -1px 2px #444;
+  }	 
+  .btn-wrap-h {
+	  height: 56px;
+	  /*height: calc(var(--btn-h) + 16px);*/
   }
+   
 
-  .btn-copy {
-    font-size: 13px;
-    padding: 0 14px;
-    color: var(--muted);
-  }
 
-  .output-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 13px;
-    color: var(--muted);
-    padding: 0 2px;
+/*  .btn-copy {
+      font-size: 13px;
+      padding: 0 14px;
+      color: var(--muted);
+  }*/
+
+  .label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      color: var(--text);
+      padding: 0 2px;
   }
 </style>
 </head>
 <body>
+<!--    <h1 class="shadow">URL Encoder / Decoder</h1> -->
+    <div class="main-container">
+        <div class="container title">
+            <h1 class="shadow">URL Encoder / Decoder</h1>     <!--   SHOULD this be centered over the code input OR the entire page   i can fix it buti wanted ou  opinion on what would be better (fixing is amttr of puilling it back outside and nothavinging a side container)   -->
+		<div class="desc-text">Need to URL Encode or Decode some text, data, etc? Just type or paste in the input box then click either Encode or Decode then you can click copy to copy the result. ____SENTENCE ABOUT RESULT TO INPUT BUTTON_____. By default, typed/pasted text is live translasted; if you prefer to disable this functionality uncheck Live.</div>
+    </div>
+    <div class="main-container">
+		<div class="side-code-wrap">
+            <div class="side-container">
+	    		<div class="side-label">Input</div>
+		    </div>
+            <div class="container">
+                <textarea id="input" oninput="check(this.value);" placeholder="Enter text to encode or decode..."></textarea>
+            </div>
+        </div>
+        
+		<div class="side-code-wrap">        
+            <div id="live-btn" class="side-container">
+	    		<div class="side-label">
+					<input id="live-label" type="checkbox"></input><span class="live">Live</span>
+	    		</div>
+		    </div>
+            <div class="container btn-wrap-h">
+                <div id="mid-btn" class="buttons center-btns">
+                    <div class="btn" id="btnEncode">Encode</div>
+                    <div class="btn" id="btnSwap">⇅ Swap</div>
+                    <div class="btn" id="btnDecode">Decode</div>
+                </div>
+            </div>
+        </div>
 
-<h1>URL Encoder / Decoder</h1>
 
-<div class="container">
-  <textarea id="input" placeholder="Enter text to encode or decode..."></textarea>
-
-  <div class="buttons">
-    <div class="btn" id="btnEncode">Encode</div>
-    <div class="btn" id="btnSwap">⇅ Swap</div>
-    <div class="btn" id="btnDecode">Decode</div>
-  </div>
-
-  <div class="output-label">
-    <span>Output</span>
-    <div class="btn btn-copy" id="btnCopy">Copy</div>
-  </div>
-
-  <textarea id="output" placeholder="Result will appear here..." readonly></textarea>
-</div>
-
+		<div class="side-code-wrap">
+            <div class="side-container">
+    			<div class="side-label">Output</div>
+            </div>
+            <div class="container">
+                <textarea id="output" placeholder="Result will appear here..." readonly></textarea>
+                    <div class="buttons copy">
+                        <div class="btn" id="btnCopy">Copy</div>
+                    </div>
+            </div>    
+        </div>
+    </div>
+  
 <script>
   const input = document.getElementById('input');
   const output = document.getElementById('output');
@@ -183,7 +305,80 @@
       });
     }
   });
+  
+  //set height of area containing 3 buttons min page to height of adjacent side container
+  liveBtnHeight = document.getElementById('live-btn').offsetHeight;
+
+  midBtnWrap = document.querySelector('.btn-wrap-h');
+  midBtn = document.getElementById('mid-btn');
+  midBtnWrap.style.height = liveBtnHeight + 'px';
+  midBtn.style.height = liveBtnHeight + 'px';
+  
+//commented until fixed  
+  //center "Live" text by ckeck box LR (no padding currently as centering doesnt APPEAR to work using TRADITIONAL CSS
+  sideContWidth = document.querySelector('.side-container').offsetWidth;
+  live = document.querySelector('.live');
+  padLR = Math.floor(sideContWidth / 2) + 'px';
+  padTB = '15px';
+  live.style.padding = 'padTB padLR padTB padLR';
+  
+  
+  //Auto Detect if Inpit is to be Encoded or Decoded
+function check(val) {
+	const inputValue = document.getElementById('input').value;
+	const input = document.getElementById('input');
+    const output = document.getElementById('output');
+	console.log('CHANGE DETECTED', val);
+	regex = /<|>|\+|#/;
+	regexPercentStartExtra = /^%./;
+	regexPercentStart = /^%/;
+	regexPercentStartOnly = /^%$/;
+	match = regex.test(inputValue);
+	matchPercentStart = regexPercentStart.test(inputValue);
+	matchPercentStartOnly = regexPercentStartOnly.test(inputValue);
+	matchPercentStartExtra = regexPercentStartExtra.test(inputValue);
+	console.log('matchPercentStartExtra', matchPercentStartExtra);
+	matchPercentStart = regexPercentStart.test(inputValue);
+	if (match === true) {
+		console.log('Match Found: Encode');
+		try {
+          output.value = encodeURIComponent(input.value);
+        } catch(e) {
+          output.value = 'Error: ' + e.message;
+        }
+	}
+	else if (matchPercentStart === true) {
+		if (matchPercentStartOnly === true) {
+			console.log('% firstCharacter; NO OTHER CHARACTERS YET');
+		}
+		else {
+			console.log('% firstCharacter; More Characters Added');   // NEED TO HANDL CASE WHERE % fllowed by character that DO decode ISNT kept as encoded..... TBC
+			3
+			try {
+              output.value = encodeURIComponent(input.value);
+            } catch(e) {
+              output.value = 'Error: ' + e.message;
+            }
+        }
+	}
+	else {
+		console.log('Match Not Found: Decode');
+	    try {
+          output.value = decodeURIComponent(input.value);
+        } catch(e) {
+          output.value = 'Error: invalid encoded string';
+        }
+	}
+}
+	
+//	console.log('<', testMatchLeft);
+//	matchRight = input.match(">")
+//	console.log('<', matchLeft);
+
 </script>
 
 </body>
 </html>
+
+
+
