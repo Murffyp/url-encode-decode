@@ -70,7 +70,8 @@
     .side-container {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;     /* THIS WAS APPLYING  CLEARLY SOMETHIG IS OVERRIDING IT NOW  -- CLAUDE ?? */
+      align-items: center;     /* THIS WAS APPLYING  CLEARLY SOMETHIG IS OVERRIDING IT NOW  -- CLAUDE ?? */
+      justify-content: center;
       gap: 12px;
       width: 5vw;
       max-width: 60px;
@@ -78,7 +79,7 @@
       writing-mode: vertical-rl;
       text-orientation: mixed;
       transform: rotate(180deg);
-      padding: 15px 10px;
+      padding: 5px;
       font-family: 'Inter', sans-serif;
       font-weight: 600;
       letter-spacing: 0.15em;
@@ -117,7 +118,7 @@
   
   .live {
 	  font-size: 14px;
-	  padding: 15px 0px 15px 5px;
+	  padding: 7px 0px 7px 7px;
 	  text-transform: capitalize;
   }  
   .desc-text {
@@ -248,7 +249,7 @@
 		<div class="side-code-wrap">        
             <div id="live-btn" class="side-container">
 	    		<div class="side-label">
-					<input id="live-label" type="checkbox"></input><span class="live">Live</span>
+					<input id="live-label" type="checkbox" checked></input><span class="live">Live</span>
 	    		</div>
 		    </div>
             <div class="container btn-wrap-h">
@@ -275,6 +276,14 @@
     </div>
   
 <script>
+
+document.getElementById('live-label').addEventListener('change', function() {
+    if (!this.checked) {
+        input.removeEventListener('oninput', check);
+    } else {
+        input.addEventListener('oninput', check);
+    }
+});
 
   const input = document.getElementById('input');
   const output = document.getElementById('output');
@@ -333,7 +342,7 @@
   sideContWidth = document.querySelector('.side-container').offsetWidth;
   live = document.querySelector('.live');
   padLR = Math.floor(sideContWidth / 2) + 'px';
-  padTB = '15px';
+  padTB = '7px';
   live.style.padding = 'padTB padLR padTB padLR';
   
   
