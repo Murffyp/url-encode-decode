@@ -210,6 +210,14 @@
       color: var(--btn-highlight);
   }
    
+  .btn-left-pad {
+	  margin-left: 30px;
+  } 
+
+  .btn-right-pad {
+	  margin-right: 30px;
+  } 
+   
   .btn-wrap-h {
 	  height: 56px;
 	  /*height: calc(var(--btn-h) + 16px);*/
@@ -260,23 +268,28 @@
 		    </div>
             <div class="container btn-wrap-h">
                 <div id="mid-btn" class="buttons center-btns">
-                    <div class="btn" id="btnEncode">Encode</div>
+                    <div class="btn btn-left-pad" id="btnEncode">Encode</div>
                     <div class="btn" id="btnSwap">⇅ Swap</div>
-                    <div class="btn" id="btnDecode">Decode</div>
+                    <div class="btn btn-right-pad" id="btnDecode">Decode</div>
                 </div>
             </div>
         </div>
-
-
 		<div class="side-code-wrap">
             <div class="side-container">
     			<div class="side-label">Output</div>
             </div>
             <div class="container">
                 <textarea id="output" placeholder="Result will appear here..." readonly></textarea>
-                    <div class="buttons copy">
-                        <div class="btn" id="btnCopy">Copy</div>
-                    </div>
+            </div>    
+        </div>
+		<div class="side-code-wrap">
+            <div class="side-container">
+    			<div class="side-label"></div>
+            </div>
+            <div class="container">
+                <div class="buttons copy">
+                    <div class="btn" id="btnCopy">Copy</div>
+                </div>
             </div>    
         </div>
     </div>
@@ -307,10 +320,12 @@ function handleInput() {
 document.getElementById('live-label').addEventListener('change', function() {
     if (this.checked) {
         input.addEventListener('input', handleInput);
+        output.placeholder = 'Result will appear here...';
     } else {
         input.removeEventListener('input', handleInput);
         output.value = '';
         removeHighlightButton();
+        output.placeholder = 'Click Encode or Decode to process...';
     }
 });
 
