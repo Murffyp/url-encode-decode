@@ -120,7 +120,13 @@
 	  font-size: 14px;
 	  padding: 7px 0px 7px 7px;
 	  text-transform: capitalize;
-  }  
+  }
+  
+  input[type="checkbox"] {
+    transform: rotate(90deg);
+    accent-color: var(--accent);
+}
+    
   .desc-text {
       width: fit-content;
       min-height: fit-content;
@@ -242,7 +248,7 @@
 	    		<div class="side-label">Input</div>
 		    </div>
             <div class="container">
-                <textarea id="input" oninput="check(this.value);" placeholder="Enter text to encode or decode..."></textarea>
+                <textarea id="input" placeholder="Enter text to encode or decode..."></textarea>
             </div>
         </div>
         
@@ -279,14 +285,44 @@
 
 document.getElementById('live-label').addEventListener('change', function() {
     if (!this.checked) {
-        input.removeEventListener('oninput', check);
+        input.removeEventListener('input', check);
     } else {
-        input.addEventListener('oninput', check);
+        input.addEventListener('input', check);
     }
 });
 
+
+
   const input = document.getElementById('input');
   const output = document.getElementById('output');
+
+// add listener on page load
+input.addEventListener('input', handleInput);
+
+function handleInput() {
+    check(this.value);
+}
+
+// toggle
+document.getElementById('live-label').addEventListener('change', function() {
+    if (this.checked) {
+        input.addEventListener('input', handleInput);
+    } else {
+        input.removeEventListener('input', handleInput);
+        output.value = '';
+        removeHighlightButton();
+    }
+});
+
+
+// If iunput box is empty output box is empty
+input.addEventListener('input', function() {
+    if (input.value === '') {
+        output.value = '';
+        removeHighlightButton();
+    }
+});
+
 
   function animateBtn(btn) {
     btn.classList.add('active');
