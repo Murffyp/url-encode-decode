@@ -19,6 +19,7 @@
       --muted: #6b9ba0;
       --muted2: #00BCD422;
       --muted3: #00BCD477;
+      --btn-highlight: #0077d3;
       --btn-h: 40px;
   }
 
@@ -120,7 +121,7 @@
 	  text-transform: capitalize;
   }  
   .desc-text {
-      width: 100%;
+      width: fit-content;
       min-height: fit-content;
       background: var(--muted2);  
       color: var(--text);
@@ -181,8 +182,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 2px 2px 2px var(--accent),                 /* JUST NOTICED THIS ISNT WORKING ANYMORE (NOTE other than the effect change it WAS working.. including pressing which ALSO doest work now???)... it SHOULD BE : height: calc(var(--btn-h) + 16px);:    and it WAS  so i THINK the HEIGHT is whats making he effect not visible its there i think  just not visible???.....   OR (less likely) SOMETHING must be OVRRIDING IT   but when i look at STYLES IN DEV tools.. it SHOWS its applied and not crossed out.. but ITS NOT THERE????   */
-                   -2px -2px 2px #777777						/* SEE BELOW i tried hardcoding he height THAT DOESNT WORK EITHER so SOMETHING IS OVERIDING THE HEIGHT  */
+      box-shadow: 2px 2px 2px var(--accent),
+                   -2px -2px 2px #777777;
       transition: box-shadow 0.15s, transform 0.1s;
 	  
   }
@@ -191,7 +192,17 @@
 	  box-shadow: 1px 1px 1px var(--accent), 
                    -2px -2px 2px #777777cent),
                   -1px -1px 2px #444;
-  }	 
+  }
+  
+  .btn.active-highlight {
+/*      box-shadow: 2px 2px 2px #000ed3,
+                   -2px -2px 2px #777777;
+      color: #000ed3;*/
+      box-shadow: 2px 2px 2px var(--btn-highlight),
+                   -2px -2px 2px #777777;
+      color: var(--btn-highlight);
+  }
+   
   .btn-wrap-h {
 	  height: 56px;
 	  /*height: calc(var(--btn-h) + 16px);*/
@@ -220,7 +231,9 @@
     <div class="main-container">
         <div class="container title">
             <h1 class="shadow">URL Encoder / Decoder</h1>     <!--   SHOULD this be centered over the code input OR the entire page   i can fix it buti wanted ou  opinion on what would be better (fixing is amttr of puilling it back outside and nothavinging a side container)   -->
-		<div class="desc-text">Need to URL Encode or Decode some text, data, etc? Just type or paste in the input box then click either Encode or Decode then you can click copy to copy the result. ____SENTENCE ABOUT RESULT TO INPUT BUTTON_____. By default, typed/pasted text is live translasted; if you prefer to disable this functionality uncheck Live.</div>
+        </div>
+        <!--		<div class="desc-text">Need to URL Encode or Decode some text, data, etc? Just type or paste in the input box then click either Encode or Decode then you can click copy to copy the result. ____SENTENCE ABOUT RESULT TO INPUT BUTTON_____. By default, typed/pasted text is live translasted; if you prefer to disable this functionality uncheck Live.</div>  -->
+		<div class="desc-text">Paste or type below. Auto-detects encode/decode. Hit Copy to grab the result. If you prefer to disable auto-detect, unselect Live.</div>
     </div>
     <div class="main-container">
 		<div class="side-code-wrap">
@@ -262,6 +275,7 @@
     </div>
   
 <script>
+
   const input = document.getElementById('input');
   const output = document.getElementById('output');
 
@@ -334,65 +348,91 @@ function check(val) {
 	regexPercentStart = /^%/;
 	regexPercentStartOneExtra = /^%[\S]{1}$/;
 	regexPercentStartOnly = /^%$/;
+	regexEmpty = /''/;
 	match = regex.test(inputValue);
 	matchPercentStart = regexPercentStart.test(inputValue);
 	matchPercentStartOnly = regexPercentStartOnly.test(inputValue);
 	matchPercentStartAny = regexPercentStartAny.test(inputValue);
 	matchPercentStartOneExtra = regexPercentStartOneExtra.test(inputValue);
+	matchEmpty = regexEmpty.test(inputValue);
 	console.log('✅REGEX: match = ', match);
 	console.log('1️⃣REGEX: matchPercentStart = ', matchPercentStart);
 	console.log('2️⃣REGEX: matchPercentStartOnly = ', matchPercentStartOnly);
 	console.log('4️⃣REGEX: matchPercentStartAny = ', matchPercentStartAny);
 	console.log('3️⃣REGEX: matchPercentStartOneExtra = ', matchPercentStartOneExtra);
-	if (match === true) {
-		console.log('Match Found: Encode');
-		try {
-			output.value = encodeURIComponent(input.value);
-        } catch(e) {
-			output.value = 'Error: ' + e.message;
-        }
-	}
-	else if (matchPercentStart === true) {
-		console.log('[matchPercentStart] % Is first character');
-		    if (matchPercentStartOnly === true) {
-				console.log('[matchPercentStartOnly] % Is ONLY character: DO NOT ENCODE OR DECODE YET');
-				output.value = 'waiting on additional characters for auto-detect';
-			}
-			else if (matchPercentStartOneExtra === true) {
-			    try {
-					console.log('[matchPercentStart, matchPercentStartOneExtra] % Is first character WITH ONE other character, TRY encode, if fail decode');
-					output.value = '';
-					output.value = encodeURIComponent(input.value);
-				} catch(e) {
-					console.log('[matchPercentStart, matchPercentStartOneExtra] % Is first character WITH ONE other character, decode');
-					output.value = '';
-					output.value = decodeURIComponent(input.value);
-                }
-			}
-			else if (matchPercentStartAny === true) {
-			    try {
-					console.log('[matchPercentStart, matchPercentStartAny] % Is first character WITH other characters, try decode, fail encode');
-					output.value = decodeURIComponent(input.value);
-				} catch(e) {
-					console.log('[matchPercentStart, matchPercentStartAny] % Is first character WITH other characters, encode');
-					output.value = encodeURIComponent(input.value);
+    if (inputValue === '') {
+    	removeHighlightButton() 
+    }
+    else {
+    	if (match === true) {
+    		console.log('Match Found: Encode');
+    		try {
+    			output.value = encodeURIComponent(input.value);
+    			removeHighlightButton();
+    			highlightButtonAutoDetect('btnEncode');
+            } catch(e) {
+    			output.value = 'Error: ' + e.message;
+            }
+    	}
+    	else if (matchPercentStart === true) {
+    		console.log('[matchPercentStart] % Is first character');
+    		    if (matchPercentStartOnly === true) {
+    				console.log('[matchPercentStartOnly] % Is ONLY character: DO NOT ENCODE OR DECODE YET');
+    				output.value = 'waiting on additional characters for auto-detect';
+    				removeHighlightButton();
+    			}
+    			else if (matchPercentStartOneExtra === true) {
+    			    try {
+    					console.log('[matchPercentStart, matchPercentStartOneExtra] % Is first character WITH ONE other character, TRY encode, if fail decode');
+    					output.value = encodeURIComponent(input.value);
+            			removeHighlightButton();
+    			        highlightButtonAutoDetect('btnEncode');
+    				} catch(e) {
+    					console.log('[matchPercentStart, matchPercentStartOneExtra] % Is first character WITH ONE other character, decode');
+    					output.value = decodeURIComponent(input.value);
+    					removeHighlightButton();
+    			        highlightButtonAutoDetect('btnDecode');
+                    }
+    			}
+    			else if (matchPercentStartAny === true) {
+    			    try {
+    					console.log('[matchPercentStart, matchPercentStartAny] % Is first character WITH other characters, try decode, fail encode');
+    					output.value = decodeURIComponent(input.value);
+    					removeHighlightButton();
+    			        highlightButtonAutoDetect('btnDecode');		
+    				} catch(e) {
+    					console.log('[matchPercentStart, matchPercentStartAny] % Is first character WITH other characters, encode');
+    					output.value = encodeURIComponent(input.value);
+    					removeHighlightButton();
+    			        highlightButtonAutoDetect('btnEncode');
+                    }
+    			}
+    	}
+    	else {
+    		console.log('Match Not Found: Decode');
+    	    try {
+    			output.value = decodeURIComponent(input.value);
+    			removeHighlightButton();
+    			highlightButtonAutoDetect('btnDecode');
+            } catch(e) {
+    			output.value = 'Error: invalid encoded string';
+            }
+    	}
+    }
 
-                }
-			}
-	}
-	else {
-		console.log('Match Not Found: Decode');
-	    try {
-			output.value = decodeURIComponent(input.value);
-        } catch(e) {
-			output.value = 'Error: invalid encoded string';
-        }
-	}
 }
-	
-//	console.log('<', testMatchLeft);
-//	matchRight = input.match(">")
-//	console.log('<', matchLeft);
+
+function removeHighlightButton() {
+	// remove from both first
+	document.getElementById('btnEncode').classList.remove('active-highlight');
+	document.getElementById('btnDecode').classList.remove('active-highlight');
+}
+
+function highlightButtonAutoDetect(val) {
+	// add to whichever won    // 	document.getElementById('btnEncode').classList.add('active-mode'); 	// OR  //    document.getElementById('btnDecode').classList.add('active-mode');
+	document.getElementById(val).classList.add('active-highlight');
+}
+
 
 </script>
 
